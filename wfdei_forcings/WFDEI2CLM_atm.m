@@ -9,7 +9,7 @@
 % ncid = netcdf.open(template);
 
 % datatest =
-% ncread('C:\Users\Dommi\Desktop\WFDEI_sample\Rainf_WFDEI_CRU\clmforc.cruncep.V4.c2011.0.5d.Prec.2010-12.nc','PRECTmms');
+% tmp = ncread('F:\Users\lrains\CLM_Forcings\CRUNCEP_Forcing_sample\clmforc.cruncep.V4.c2011.0.5d.TPQWL.2010-12.nc','PSRF');
 % cd('C:\Users\Dommi\Desktop\WFDEI_sample\Rainf_WFDEI_CRU');
 cd('F:\Users\lrains\CLM_Forcings\WFDEI_Forcing\__WFDEI_CLM\_extracted\PSurf_Qair_Wind_LW_WFDEI');
 
@@ -40,7 +40,29 @@ for file = files1'
     data4 = ncread(filen4,'Tair');
     data5 = ncread(filen5,'LWdown');
     
-  
+   
+    data1l = data1(1:360,:,:);
+    data1r = data1(361:720,:,:);
+    data1 = cat(1,data1r,data1l);
+    
+    data2l = data2(1:360,:,:);
+    data2r = data2(361:720,:,:);
+    data2 = cat(1,data2r,data2l);
+    
+    data3l = data3(1:360,:,:);
+    data3r = data1(361:720,:,:);
+    data3 = cat(1,data3r,data3l);
+    
+    data4l = data4(1:360,:,:);
+    data4r = data1(361:720,:,:);
+    data4 = cat(1,data4r,data4l);
+    
+    data5l = data5(1:360,:,:);
+    data5r = data5(361:720,:,:);
+    data5 = cat(1,data5r,data5l);
+    
+    
+      
     ind = data1 == 100000002004087730000.000000;
     data1(ind) = 100;
     
@@ -72,9 +94,9 @@ for file = files1'
     time = time - (0.125 / 2);
     
     latitude  = linspace(1, 360, 360);
-    latitude  = (latitude / 2) - 90.25;
+    latitude  = (latitude / 2);% - 90.25;
     longitude = linspace(1, 720, 720);
-    longitude = (longitude / 2) - 180.25;  
+    longitude = (longitude / 2);% - 180.25;  
     
     latitude  = single(latitude);
     longitude = single(longitude);

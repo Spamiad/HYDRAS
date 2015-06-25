@@ -29,6 +29,18 @@ for file = files1'
     % open netcdf
     data1 = ncread(filen1,'Rainf');
     data2 = ncread(filen2,'Snowf');
+    
+    
+    
+    data1l = data1(1:360,:,:);
+    data1r = data1(361:720,:,:);
+    data1 = cat(1,data1r,data1l);
+    
+    data2l = data2(1:360,:,:);
+    data2r = data2(361:720,:,:);
+    data2 = cat(1,data2r,data2l);
+    
+
         
     ind = data1 == 100000002004087730000.000000;
     data1(ind) = 0;
@@ -54,9 +66,9 @@ for file = files1'
     time = time - (0.125 / 2);
     
     latitude  = linspace(1, 360, 360);
-    latitude  = (latitude / 2) - 90.25;
+    latitude  = (latitude / 2); %- 90.25;
     longitude = linspace(1, 720, 720);
-    longitude = (longitude / 2) - 180.25;  
+    longitude = (longitude / 2); %- 180.25;  
     
     latitude  = single(latitude);
     longitude = single(longitude);

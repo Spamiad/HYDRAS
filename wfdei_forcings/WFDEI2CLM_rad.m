@@ -23,6 +23,11 @@ for file = files1'
     % open netcdf
     data1 = ncread(filen1,'SWdown');
     
+    data1l = data1(1:360,:,:);
+    data1r = data1(361:720,:,:);
+    data1 = cat(1,data1r,data1l);
+    
+    
     % test, use only every second record
     %tstep = size(data1,3);    
     %data1=data1(:,:,1:2:tstep);
