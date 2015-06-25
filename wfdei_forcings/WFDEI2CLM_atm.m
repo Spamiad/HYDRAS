@@ -14,11 +14,11 @@
 cd('F:\Users\lrains\CLM_Forcings\WFDEI_Forcing\__WFDEI_CLM\_extracted\PSurf_Qair_Wind_LW_WFDEI');
 
 % loop over all files in directory
-files1 = dir('Wind*.nc');   % wind
-files2 = dir('Qair*.nc');   % specific humidity
-files3 = dir('Psurf*.nc');  % pressure
-files4 = dir('Tair*.nc');   % temperature
-files5 = dir('LWdown*.nc'); % Longwave
+files1 = dir('Wind_WFDEI_*.nc');   % wind
+files2 = dir('Qair_WFDEI_*.nc');   % specific humidity
+files3 = dir('Psurf_WFDEI_*.nc');  % pressure
+files4 = dir('Tair_WFDEI_*.nc');   % temperature
+files5 = dir('LWdown_WFDEI_*.nc'); % Longwave
 
 % filen1 = files1(1).name;
 
@@ -42,31 +42,34 @@ for file = files1'
     
   
     ind = data1 == 100000002004087730000.000000;
-    data1(ind) = 0;
+    data1(ind) = 100;
     
-    ind = data2 == 100000002004087730000.000000;
-    data2(ind) = 0; 
+    ind = isnan(data2);
+    data2(ind) = 0.01; 
     
     ind = data3 == 100000002004087730000.0;
-    data3(ind) = 0; 
+    data3(ind) = 50000; 
     
     ind = data4 == 100000002004087730000.0;
-    data4(ind) = 0;        
+    data4(ind) = 270;        
     
-    ind = data5 == 100000002004087730000.000000;
-    data5(ind) = 0;    
+    ind = isnan(data5);
+    data5(ind) = 250;    
     
     % create time attribute value
-    tattrib = ['hours since ',filen1(12:15),'-',filen1(16:17),'-01 ','00:00:00'];
+    tattrib = ['days since ',filen1(12:15),'-',filen1(16:17),'-01 ','00:00:00'];
     
     tlength = size(data2);
     tlength = tlength(3);
     
-    time = linspace(1, tlength, tlength);
-    time = time -1;
-    time = time * 3;
+    % time = linspace(1, tlength, tlength);
+    % time = time -1;
+    % time = time * 3;
+    % time = time + 6;
     
-    time = int16(time);
+    time = linspace(1, tlength, tlength);
+    time = time / 8;
+    time = time - (0.125 / 2);
     
     latitude  = linspace(1, 360, 360);
     latitude  = (latitude / 2) - 90.25;
@@ -88,7 +91,7 @@ for file = files1'
     varid2 = netcdf.defVar(ncid,'QBOT','float',[lonid,latid,tid]);   % Q
     varid3 = netcdf.defVar(ncid,'PSRF','float',[lonid,latid,tid]);   % P
     varid4 = netcdf.defVar(ncid,'TBOT','float',[lonid,latid,tid]);   % Temp
-    varid5 = netcdf.defVar(ncid,'LWdown','float',[lonid,latid,tid]); % LW
+    varid5 = netcdf.defVar(ncid,'FLDS','float',[lonid,latid,tid]);   % LW
     
     timev = netcdf.defVar(ncid,'time','float',tid);
     latv  = netcdf.defVar(ncid,'lat','float',latid);
@@ -98,11 +101,11 @@ for file = files1'
     netcdf.putAtt(ncid,timev,'calendar','gregorian');
     
     % units for forcing variables
-    netcdf.putAtt(ncid,varid1,'units','m s-1');
+    netcdf.putAtt(ncid,varid1,'units','m/s');
     netcdf.putAtt(ncid,varid2,'units','kg/kg');
     netcdf.putAtt(ncid,varid3,'units','Pa');
     netcdf.putAtt(ncid,varid4,'units','K');
-    netcdf.putAtt(ncid,varid5,'units','W/m2');    
+    netcdf.putAtt(ncid,varid5,'units','W/m**2');    
           
     netcdf.endDef(ncid);
     netcdf.putVar(ncid,timev,time);

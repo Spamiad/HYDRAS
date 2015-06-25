@@ -16,9 +16,9 @@ cd('F:\Users\lrains\CLM_Forcings\WFDEI_Forcing\__WFDEI_CLM\_extracted\Rainf_Snow
 i=0;
 
 % loop over all files in directory
-files1 = dir('Rainf*.nc');
-files2 = dir('Snowf*.nc');
-% file = files(1).name;
+files1 = dir('Rainf_WFDEI_CRU_*.nc');
+files2 = dir('Snowf_WFDEI_CRU_*.nc');
+% file = files1(1).name;
 
 for file = files1'
     filen1 = file.name;
@@ -39,16 +39,19 @@ for file = files1'
     data = data1 + data2;
     
     % create time attribute value
-    tattrib = ['hours since ',filen1(17:20),'-',filen1(21:22),'-01 ','00:00:00'];
+    tattrib = ['days since ',filen1(17:20),'-',filen1(21:22),'-01 ','00:00:00'];
     
     tlength = size(data1);
     tlength = tlength(3);
     
-    time = linspace(1, tlength, tlength);
-    time = time -1;
-    time = time * 3;
+    % time = linspace(1, tlength, tlength);
+    % time = time -1;
+    % time = time * 3;
+    % time = time + 6;
     
-    time = int16(time);
+    time = linspace(1, tlength, tlength);
+    time = time / 8;
+    time = time - (0.125 / 2);
     
     latitude  = linspace(1, 360, 360);
     latitude  = (latitude / 2) - 90.25;

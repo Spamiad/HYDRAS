@@ -14,42 +14,42 @@
 cd('F:\Users\lrains\CLM_Forcings\WFDEI_Forcing\__WFDEI_CLM\_extracted\SWdown_WFDEI');
 
 % loop over all files in directory
-files1 = dir('LW*.nc'); % longwave radiation
-files2 = dir('SW*.nc'); % shortwave radiation
-% file = files(1).name;
+files1 = dir('SWdown_WFDEI_*.nc'); % shortwave radiation
+% filen1 = files1(1).name;
 
-i=0;
-
-for file = files2'
+for file = files1'
     filen1 = file.name;
-    
-    i=i+1;
-    filen2 = files2(i).name;
-    
+            
     % open netcdf
-    %data1 = ncread(filen1,'LWdown');
-    data2 = ncread(filen2,'SWdown');
+    data1 = ncread(filen1,'SWdown');
     
-  
-    % ind = data1 == 100000002004087730000.000000;
-    % data1(ind) = 0;
+    % test, use only every second record
+    %tstep = size(data1,3);    
+    %data1=data1(:,:,1:2:tstep);
     
-    ind = data2 == 100000002004087730000.000000;
-    data2(ind) = 0;
-    
-    % data = data1+data2;
+    %EDGEE = ncread(filen1,'EDGEE');
+    %EDGEN = ncread(filen1,'ESGEN');
+    %EDGES = ncread(filen1,'EDGES');
+    %EDGEW = ncread(filen1,'EDGEW');
+       
+    ind = data1 == 100000002004087730000.000000;
+    data1(ind) = 0;   
     
     % create time attribute value
-    tattrib = ['hours since ',filen1(14:17),'-',filen1(18:19),'-01 ','00:00:00'];
+    % tattrib = ['hours since ',filen1(14:17),'-',filen1(18:19),'-01 ','00:00:00'];
+    tattrib = ['days since ',filen1(14:17),'-',filen1(18:19),'-01 ','00:00:00'];
     
-    tlength = size(data2);
+    tlength = size(data1);
     tlength = tlength(3);
     
-    time = linspace(1, tlength, tlength);
-    time = time -1;
-    time = time * 3;
+    % time = linspace(1, tlength, tlength);
+    % time = time -1;
+    % time = time * 3;
+    % time = time + 6;
     
-    time = int16(time);
+    time = linspace(1, tlength, tlength);
+    time = time / 8;
+    time = time - (0.125 / 2);
     
     latitude  = linspace(1, 360, 360);
     latitude  = (latitude / 2) - 90.25;
@@ -77,13 +77,13 @@ for file = files2'
     netcdf.putAtt(ncid,timev,'calendar','gregorian');
     
     % units for forcing variables
-    netcdf.putAtt(ncid,varid,'units','W/m2');
+    netcdf.putAtt(ncid,varid,'units','W/m**2');
         
     netcdf.endDef(ncid);
     netcdf.putVar(ncid,timev,time);
     netcdf.putVar(ncid,latv,latitude);
     netcdf.putVar(ncid,lonv,longitude);
-    netcdf.putVar(ncid,varid,data2); 
+    netcdf.putVar(ncid,varid,data1); 
     
     netcdf.close(ncid);
 end
