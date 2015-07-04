@@ -11,7 +11,8 @@
 % datatest =
 % tmp = ncread('F:\Users\lrains\CLM_Forcings\CRUNCEP_Forcing_sample\clmforc.cruncep.V4.c2011.0.5d.TPQWL.2010-12.nc','PSRF');
 % cd('C:\Users\Dommi\Desktop\WFDEI_sample\Rainf_WFDEI_CRU');
-cd('F:\Users\lrains\CLM_Forcings\WFDEI_Forcing\__WFDEI_CLM\_extracted\PSurf_Qair_Wind_LW_WFDEI');
+%cd('F:\Users\lrains\CLM_Forcings\WFDEI_Forcing\__WFDEI_CLM\_extracted\PSurf_Qair_Wind_LW_WFDEI');
+cd('C:\Users\Dommi\Desktop\water_dl\wfdei');
 
 % loop over all files in directory
 files1 = dir('Wind_WFDEI_*.nc');   % wind
@@ -50,11 +51,11 @@ for file = files1'
     data2 = cat(1,data2r,data2l);
     
     data3l = data3(1:360,:,:);
-    data3r = data1(361:720,:,:);
+    data3r = data3(361:720,:,:);
     data3 = cat(1,data3r,data3l);
     
     data4l = data4(1:360,:,:);
-    data4r = data1(361:720,:,:);
+    data4r = data4(361:720,:,:);
     data4 = cat(1,data4r,data4l);
     
     data5l = data5(1:360,:,:);
@@ -94,7 +95,7 @@ for file = files1'
     time = time - (0.125 / 2);
     
     latitude  = linspace(1, 360, 360);
-    latitude  = (latitude / 2);% - 90.25;
+    latitude  = (latitude / 2) - 90.25;
     longitude = linspace(1, 720, 720);
     longitude = (longitude / 2);% - 180.25;  
     

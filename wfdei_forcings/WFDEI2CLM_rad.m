@@ -11,7 +11,8 @@
 % datatest =
 % ncread('C:\Users\Dommi\Desktop\WFDEI_sample\Rainf_WFDEI_CRU\clmforc.cruncep.V4.c2011.0.5d.Prec.2010-12.nc','PRECTmms');
 % cd('C:\Users\Dommi\Desktop\WFDEI_sample\Rainf_WFDEI_CRU');
-cd('F:\Users\lrains\CLM_Forcings\WFDEI_Forcing\__WFDEI_CLM\_extracted\SWdown_WFDEI');
+%cd('F:\Users\lrains\CLM_Forcings\WFDEI_Forcing\__WFDEI_CLM\_extracted\SWdown_WFDEI');
+cd('C:\Users\Dommi\Desktop\water_dl\wfdei');
 
 % loop over all files in directory
 files1 = dir('SWdown_WFDEI_*.nc'); % shortwave radiation
@@ -59,7 +60,7 @@ for file = files1'
     latitude  = linspace(1, 360, 360);
     latitude  = (latitude / 2) - 90.25;
     longitude = linspace(1, 720, 720);
-    longitude = (longitude / 2) - 180.25;  
+    longitude = (longitude / 2); % - 180.25;  
     
     latitude  = single(latitude);
     longitude = single(longitude);
