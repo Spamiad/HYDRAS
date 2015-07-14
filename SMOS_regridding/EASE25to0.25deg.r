@@ -1,30 +1,41 @@
 
 # from http://gis.stackexchange.com/questions/47991/how-to-re-project-the-ease-equal-area-scalable-earth-grid-with-a-25-km-cylind
 
-require(ncdf)
+library(ncdf)
 
 # simple plot
-f = open.ncdf("F:/Users/lrains/SMOS/MIR_CLF3MD/2013/12/SM_RE02_MIR_CLF3MD_20131201T000000_20131231T235959_272_001_7.nc")
-sm=list(x=get.var.ncdf(f,"lon"),y=get.var.ncdf(f,"lat"),z=get.var.ncdf(f,"Soil_Moisture"))
-image(sm)
+#f = open.ncdf("F:/Users/lrains/SMOS/MIR_CLF3MD/2013/12/SM_RE02_MIR_CLF3MD_20131201T000000_20131231T235959_272_001_7.nc")
+#sm=list(x=get.var.ncdf(f,"lon"),y=get.var.ncdf(f,"lat"),z=get.var.ncdf(f,"Soil_Moisture"))
+#image(sm)
 
-smr = convertGrid("F:/Users/lrains/SMOS/MIR_CLF3MD/2013/12/SM_RE02_MIR_CLF3MD_20131201T000000_20131231T235959_272_001_7.nc","Soil_Moisture")
+files <- list.files(path="C:/Users/Dommi/Desktop/copula_codes/SMOSL3/MIR_CLF31A", pattern=".nc", all.files=T, full.names=T)
+for (file in files) {
+  ## do stuff
+  f = open.ncdf(file)
+  sm=list(x=get.var.ncdf(f,"lon"),y=get.var.ncdf(f,"lat"),z=get.var.ncdf(f,"Soil_Moisture"))
+
+smr = convertGrid(file,"Soil_Moisture")
 plot(smr)
 
 
 ## anything below zero is NA (-1 is missing data, soil moisture is +ve)
 smr[smr < -0.0] <- NA
 smrp = transformTo(smr) # takes a short while
-plot(smrp)
 
+#x <- as.data.frame(as(smrp, "SpatialGridDataFrame")) 
+
+fileout = paste (file,"_0.25deg.nc", sep = "", collapse = NULL)
+#write.csv(x, file = fileout)
+writeRaster(smrp, filename=fileout, format="CDF", overwrite=TRUE) 
+}
 
 
 # function
 convertGrid <- function(gridfile, name, inCRS="+init=epsg:4053"){
-  require(ncdf)
-  require(raster)
-  require(sp)
-  require(rgdal)
+  library(ncdf)
+  library(raster)
+  library(sp)
+  library(rgdal)
   
   d = open.ncdf(gridfile)
   
