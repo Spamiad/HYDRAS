@@ -11,8 +11,10 @@
 % datatest =
 % tmp = ncread('F:\Users\lrains\CLM_Forcings\CRUNCEP_Forcing_sample\clmforc.cruncep.V4.c2011.0.5d.TPQWL.2010-12.nc','PSRF');
 % cd('C:\Users\Dommi\Desktop\WFDEI_sample\Rainf_WFDEI_CRU');
-%cd('F:\Users\lrains\CLM_Forcings\WFDEI_Forcing\__WFDEI_CLM\_extracted\PSurf_Qair_Wind_LW_WFDEI');
-cd('C:\Users\Dommi\Desktop\water_dl\wfdei');
+
+cd('F:\Users\lrains\CLM_Forcings\WFDEI_Forcing\__WFDEI_CLM\_extracted\PSurf_Qair_Wind_LW_WFDEI');
+
+%cd('C:\Users\Dommi\Desktop\water_dl\wfdei');
 
 % loop over all files in directory
 files1 = dir('Wind_WFDEI_*.nc');   % wind

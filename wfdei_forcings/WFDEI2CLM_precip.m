@@ -11,8 +11,10 @@
 % datatest =
 % ncread('C:\Users\Dommi\Desktop\WFDEI_sample\Rainf_WFDEI_CRU\clmforc.cruncep.V4.c2011.0.5d.Prec.2010-12.nc','PRECTmms');
 % cd('C:\Users\Dommi\Desktop\WFDEI_sample\Rainf_WFDEI_CRU');
-% cd('F:\Users\lrains\CLM_Forcings\WFDEI_Forcing\__WFDEI_CLM\_extracted\Rainf_Snowf_WFDEI_CRU');
-cd('C:\Users\Dommi\Desktop\water_dl\wfdei');
+
+cd('F:\Users\lrains\CLM_Forcings\WFDEI_Forcing\__WFDEI_CLM\_extracted\Rainf_Snowf_WFDEI_CRU');
+
+%cd('C:\Users\Dommi\Desktop\water_dl\wfdei');
 
 i=0;
 
