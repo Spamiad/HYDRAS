@@ -35,6 +35,7 @@ header$V4
 header$V5
 
 smfile = "D:/Users/lrains/Documents/Data/MurrayDarlingBasin/Insitu/Soil_Moisture/t2.clm2.h1.2001-02-24-00000.nc"
+smfile = "OZNET_OZNET_Uri-Park_sm_0.000000_0.050000_Stevens-Hydra-Probe_20000101_20150715.stm"
 
 library(raster)
 

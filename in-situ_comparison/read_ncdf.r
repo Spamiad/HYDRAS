@@ -27,7 +27,7 @@ from <- as.Date("2000-01-01")
 to   <- as.Date("2007-04-23")
 days <- seq.Date(from=from,to=to,by="day")
 days = as.character(days)
-ts   = as.data.frame(cbind(days,as.data.frame(result)))
+ts   = as.data.frame(cbind(days,result))
 
 z2 <- read.zoo(ts, header = F, FUN = as.Date)
 
@@ -39,5 +39,3 @@ all = merge(xx, z2)
 x = as.numeric(all[,1])
 y = as.numeric(all[,2])
 cor(x,y,use = "complete.obs")
-
-values <- rep.int(0,length(days))
