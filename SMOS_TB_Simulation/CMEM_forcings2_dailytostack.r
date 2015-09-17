@@ -8,7 +8,13 @@ library(raster)
 
 stackfunction("TSKIN")
 stackfunction("SD")
+stackfunction("RSN")
 stackfunction("SWVL1")
+stackfunction("SWVL2")
+stackfunction("SWVL3")
+stackfunction("STL1")
+stackfunction("STL2")
+stackfunction("STL3")
 
 
 stackfunction = function (cmemvar) {
