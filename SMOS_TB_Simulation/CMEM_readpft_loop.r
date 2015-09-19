@@ -6,7 +6,7 @@ library(ncdf)
 
 
 # folder with restart files to read LAI values
-files = list.files("F:/CESM_Output/16_09_2015/r", pattern=".nc", all.files=T, full.names=T)
+files = list.files("F:/CESM_Output/16_09_2015/r/2010", pattern=".nc", all.files=T, full.names=T)
 
 i = 0
 
@@ -73,16 +73,16 @@ data = as.matrix(r)
 library(cape)
 data = rotate.mat(data)
 
-dataout = array(0,dim=c(160,160,1,24))
+dataout = array(0,dim=c(160,160,1,1))
 dataout[] = data
 
 
-nc2 = open.ncdf("F:/CESM_Output/16_09_2015/h1/t2.clm2.h1.2012-01-01-00000.nc")
+nc2 = open.ncdf("F:/CESM_Output/16_09_2015/h1/2010/t2.clm2.h1.2010-01-01-00000.nc")
 
 lon = get.var.ncdf(nc2,"lon")
 lat = get.var.ncdf(nc2,"lat")
 time = get.var.ncdf(nc2,"time")
-time = seq(1:24)
+time = 1
 lev  = 1
 
 # Define some straightforward dimensions
